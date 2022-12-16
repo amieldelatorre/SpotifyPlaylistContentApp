@@ -1,4 +1,5 @@
 """ Initialise Flask app """
+import os
 
 from flask import Flask
 from dotenv import load_dotenv
@@ -9,6 +10,7 @@ def create_app():
     load_dotenv()
 
     app = Flask(__name__)
+    app.secret_key = os.environ.get("SECRET_KEY")
 
     with app.app_context():
         # Initialise the controllers
