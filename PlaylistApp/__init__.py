@@ -14,8 +14,7 @@ def create_app():
 
     with app.app_context():
         # Initialise the controllers
-        from PlaylistApp.controllers import backendController, frontendController, authController
-        app.register_blueprint(backendController.backend_blueprint)
+        from PlaylistApp.controllers import frontendController, authController
         app.register_blueprint(frontendController.frontend_blueprint)
         app.register_blueprint(authController.auth_blueprint)
 
