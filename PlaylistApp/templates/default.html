@@ -11,6 +11,9 @@
   </head>
 
   <body>
-    <p>Hello!</p>
+    <a href="/download" target="blank"><img src="{{ url_for('static', filename='assets/download-circle-svgrepo-com.svg') }}"/> </a>
+    {% for key in playlists.keys() %}
+      <p>{{key}} - {{playlists[key]['name']}}, total: {{playlists[key]['total']}}</p>
+    {% endfor %}
   </body>
 </html>
