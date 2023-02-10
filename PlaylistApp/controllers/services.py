@@ -21,3 +21,25 @@ def get_playlists(limit=50, offset=0):
             break
     return results
 
+
+def get_playlist_content(playlist_id):
+    sp = spotipy.Spotify(oauth_manager=create_spotify_oauth())
+    results = []
+    limit = 100
+    offset = 0
+
+    while True:
+        query = sp.playlist_items(playlist_id=playlist_id, limit=limit, offset=offset, fields="items(track(name,artists(name),external_urls(spotify))),next")
+        results += query["items"]
+        if query['next'] is not None:
+            offset += limit
+        else:
+            break
+
+    return results
+
+
+def get_user_id():
+    sp = spotipy.Spotify(oauth_manager=create_spotify_oauth())
+    results = sp.current_user()
+    return results['id']
