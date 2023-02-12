@@ -52,8 +52,15 @@ def download():
     with tarfile.open(archived_file_name, "w:gz") as tar:
         tar.add(temp_user_folder_path, arcname=os.path.basename(temp_folder_path))
 
-    shutil.rmtree(temp_user_folder_path)
-    os.remove(archived_file_name)
+    @after_this_request
+    def clean_up(response):
+        shutil.rmtree(temp_user_folder_path)
+
+        # This causes an error in windows but works fine in Linux based systems
+        # Because Linux lets the file be read even after deletion if there is still an open file pointer to it
+        # https://stackoverflow.com/questions/24612366/delete-an-uploaded-file-after-downloading-it-from-flask
+        os.remove(archived_file_name)
+        return response
 
     return send_file(archived_file_name)
 
