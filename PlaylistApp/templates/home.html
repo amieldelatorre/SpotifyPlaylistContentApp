@@ -1,0 +1,32 @@
+{% extends 'base.html' %} {% block content %}
+    <div class="download_logout">
+        <div class="download">
+            <a href="/download" target="blank"><img class="download_svg" src="{{ url_for('static', filename='assets/download-circle-svgrepo-com.svg') }}"/> </a>
+            <div class="download_text">
+                <p>Download All</p>
+                <p>Please wait as it may take some time depending on the number of your playlists and their sizes.</p>
+            </div>
+        </div>
+
+        <div class="logout">
+            <input class="button logout" type="button" onclick="location.href='{{url_for('auth_bp.logout')}}';" value="Logout" />
+        </div>
+    </div>
+    <div class="playlist_labels">
+        <p>Title and Id</p>
+        <p># of Tracks</p>
+    </div>
+    <div class="total_playlist">
+        <p>Total number of playlists: <b>{{playlists.keys() | length}}</b></p>
+    </div>
+    {% for key in playlists.keys() %}
+        <div class="playlist_row">
+            <div class="playlist_name_and_total">
+                <a href="{{playlists[key]['external_url']}}" target="_blank"><p class="playlist_row_name">{{playlists[key]['name']}}</p></a>
+                <p class="playlist_row_total">{{playlists[key]['total']}} tracks</p>
+            </div>
+            <a href="{{playlists[key]['external_url']}}" target="_blank"><p class="playlist_row_id">Id: {{key}}</p></a>
+            <hr class="playlist_row_hr" />
+        </div>
+    {% endfor %}
+{% endblock %}

@@ -9,7 +9,7 @@ frontend_blueprint = Blueprint('frontend_bp', __name__)
 @frontend_blueprint.route("/")
 @login_required
 def hello():
-    return render_template('default.html',
+    return render_template('home.html',
                            title='Home',
                            playlists=get_playlists())
 
